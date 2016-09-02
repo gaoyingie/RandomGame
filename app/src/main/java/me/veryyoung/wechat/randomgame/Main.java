@@ -10,6 +10,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +31,7 @@ import static de.robv.android.xposed.XposedHelpers.findClass;
 public class Main implements IXposedHookLoadPackage {
 
     private static final String WECHAT_PACKAGE_NAME = "com.tencent.mm";
+    private static final String TAG = "RandomGame";
 
     private static String wechatVersion = "";
 
@@ -108,7 +110,7 @@ public class Main implements IXposedHookLoadPackage {
                 for (ApplicationInfo applicationInfo : applicationList) {
                     String packageName = applicationInfo.packageName;
                     if (isTarget(packageName)) {
-                        log("Hid package: " + packageName);
+                        Log.i(TAG, "Hid package: " + packageName);
                     } else {
                         resultapplicationList.add(applicationInfo);
                     }
@@ -125,7 +127,7 @@ public class Main implements IXposedHookLoadPackage {
                 for (PackageInfo packageInfo : packageInfoList) {
                     String packageName = packageInfo.packageName;
                     if (isTarget(packageName)) {
-                        log("Hid package: " + packageName);
+                        Log.i(TAG, "Hid package: " + packageName);
                     } else {
                         resultpackageInfoList.add(packageInfo);
                     }
@@ -139,7 +141,7 @@ public class Main implements IXposedHookLoadPackage {
                 String packageName = (String) param.args[0];
                 if (isTarget(packageName)) {
                     param.args[0] = WECHAT_PACKAGE_NAME;
-                    log("Fake package: " + packageName + " as " + WECHAT_PACKAGE_NAME);
+                    Log.i(TAG, "Fake package: " + packageName + " as " + WECHAT_PACKAGE_NAME);
                 }
             }
         });
@@ -149,7 +151,7 @@ public class Main implements IXposedHookLoadPackage {
                 String packageName = (String) param.args[0];
                 if (isTarget(packageName)) {
                     param.args[0] = WECHAT_PACKAGE_NAME;
-                    log("Fake package: " + packageName + " as " + WECHAT_PACKAGE_NAME);
+                    Log.i(TAG, "Fake package: " + packageName + " as " + WECHAT_PACKAGE_NAME);
                 }
             }
         });
@@ -162,7 +164,7 @@ public class Main implements IXposedHookLoadPackage {
                 for (RunningServiceInfo runningServiceInfo : serviceInfoList) {
                     String serviceName = runningServiceInfo.process;
                     if (isTarget(serviceName)) {
-                        log("Hid service: " + serviceName);
+                        Log.i(TAG, "Hid service: " + serviceName);
                     } else {
                         resultList.add(runningServiceInfo);
                     }
@@ -179,7 +181,7 @@ public class Main implements IXposedHookLoadPackage {
                 for (RunningTaskInfo runningTaskInfo : serviceInfoList) {
                     String taskName = runningTaskInfo.baseActivity.flattenToString();
                     if (isTarget(taskName)) {
-                        log("Hid task: " + taskName);
+                        Log.i(TAG, "Hid task: " + taskName);
                     } else {
                         resultList.add(runningTaskInfo);
                     }
@@ -196,7 +198,7 @@ public class Main implements IXposedHookLoadPackage {
                 for (RunningAppProcessInfo runningAppProcessInfo : runningAppProcessInfos) {
                     String processName = runningAppProcessInfo.processName;
                     if (isTarget(processName)) {
-                        log("Hid process: " + processName);
+                        Log.i(TAG, "Hid process: " + processName);
                     } else {
                         resultList.add(runningAppProcessInfo);
                     }
