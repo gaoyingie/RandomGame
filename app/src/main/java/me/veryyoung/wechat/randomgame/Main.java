@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -44,10 +43,6 @@ public class Main implements IXposedHookLoadPackage {
                 log("Found wechat version:" + versionName);
                 this.wechatVersion = versionName;
                 VersionParam.init(versionName);
-
-                if (!support(versionName)) {
-                    log("Maybe RandomGame don't support wechat at version:" + versionName);
-                }
             }
             findAndHookMethod("com.tencent.mm.ui.LauncherUI", lpparam.classLoader, "onCreate", Bundle.class, new XC_MethodHook() {
                 @Override
@@ -213,10 +208,5 @@ public class Main implements IXposedHookLoadPackage {
         return name.contains("veryyoung") || name.contains("xposed");
     }
 
-
-    private boolean support(String wechatVersion) {
-        List<String> supportVersion = Arrays.asList("6.3.25");
-        return supportVersion.contains(wechatVersion);
-    }
 
 }
