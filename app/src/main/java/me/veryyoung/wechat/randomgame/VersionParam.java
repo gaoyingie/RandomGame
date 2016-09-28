@@ -17,6 +17,10 @@ public class VersionParam {
                 randomGameClass = "com.tencent.mm.sdk.platformtools.be";
                 gameType = "rT";
                 break;
+            case "6.3.27":
+                randomGameClass = "com.tencent.mm.sdk.platformtools.be";
+                gameType = "tx";
+                break;
             default:
                 randomGameClass = "com.tencent.mm.sdk.platformtools.be";
                 gameType = "rT";
