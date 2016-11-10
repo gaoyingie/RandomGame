@@ -27,42 +27,18 @@ public class Main implements IXposedHookLoadPackage {
             initVersion(lpparam);
 
 
-            if (wechatVersion.equals("6.3.28")) {
+            if (wechatVersion.equals("6.3.28") || wechatVersion.equals("6.3.30")) {
                 findAndHookMethod(VersionParam.randomGameClass, lpparam.classLoader, VersionParam.gameType, int.class, int.class, new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) {
-                        int gameType = ((Integer) param.args[0]).intValue();
-                        switch (gameType) {
-                            case 2:
-                                if (PreferencesUtils.moraCheat()) {
-                                    param.setResult(PreferencesUtils.moraNum());
-                                }
-                                break;
-                            case 5:
-                                if (PreferencesUtils.diceCheat()) {
-                                    param.setResult(PreferencesUtils.diceNum());
-                                }
-                            default:
-                        }
+                        handleHook(param);
                     }
                 });
             } else {
                 findAndHookMethod(VersionParam.randomGameClass, lpparam.classLoader, VersionParam.gameType, int.class, new XC_MethodHook() {
                     @Override
                     protected void afterHookedMethod(MethodHookParam param) {
-                        int gameType = ((Integer) param.args[0]).intValue();
-                        switch (gameType) {
-                            case 2:
-                                if (PreferencesUtils.moraCheat()) {
-                                    param.setResult(PreferencesUtils.moraNum());
-                                }
-                                break;
-                            case 5:
-                                if (PreferencesUtils.diceCheat()) {
-                                    param.setResult(PreferencesUtils.diceNum());
-                                }
-                            default:
-                        }
+                        handleHook(param);
                     }
                 });
             }
@@ -71,6 +47,22 @@ public class Main implements IXposedHookLoadPackage {
             new HideModuleHook().hook(lpparam);
             new DonateHook().hook(lpparam);
 
+        }
+    }
+
+    private void handleHook(XC_MethodHook.MethodHookParam param) {
+        int gameType = ((Integer) param.args[0]).intValue();
+        switch (gameType) {
+            case 2:
+                if (PreferencesUtils.moraCheat()) {
+                    param.setResult(PreferencesUtils.moraNum());
+                }
+                break;
+            case 5:
+                if (PreferencesUtils.diceCheat()) {
+                    param.setResult(PreferencesUtils.diceNum());
+                }
+            default:
         }
     }
 
