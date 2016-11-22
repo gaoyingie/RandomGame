@@ -25,24 +25,26 @@ public class Main implements IXposedHookLoadPackage {
     public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
         if (lpparam.packageName.equals(WECHAT_PACKAGE_NAME)) {
             initVersion(lpparam);
-
-
-            if (wechatVersion.equals("6.3.28") || wechatVersion.equals("6.3.30")) {
-                findAndHookMethod(VersionParam.randomGameClass, lpparam.classLoader, VersionParam.gameType, int.class, int.class, new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) {
-                        handleHook(param);
-                    }
-                });
-            } else {
-                findAndHookMethod(VersionParam.randomGameClass, lpparam.classLoader, VersionParam.gameType, int.class, new XC_MethodHook() {
-                    @Override
-                    protected void afterHookedMethod(MethodHookParam param) {
-                        handleHook(param);
-                    }
-                });
+            switch (wechatVersion) {
+                case "6.3.22":
+                case "6.3.23":
+                case "6.3.25":
+                case "6.3.27":
+                    findAndHookMethod(VersionParam.randomGameClass, lpparam.classLoader, VersionParam.gameType, int.class, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) {
+                            handleHook(param);
+                        }
+                    });
+                    break;
+                default:
+                    findAndHookMethod(VersionParam.randomGameClass, lpparam.classLoader, VersionParam.gameType, int.class, int.class, new XC_MethodHook() {
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) {
+                            handleHook(param);
+                        }
+                    });
             }
-
 
             new HideModuleHook().hook(lpparam);
             new DonateHook().hook(lpparam);

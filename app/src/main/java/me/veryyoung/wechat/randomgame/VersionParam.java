@@ -24,6 +24,9 @@ public class VersionParam {
             case "6.3.30":
                 gameType = "cx";
                 break;
+            case "6.3.31":
+                gameType = "cx";
+                break;
             default:
                 gameType = "cx";
         }
