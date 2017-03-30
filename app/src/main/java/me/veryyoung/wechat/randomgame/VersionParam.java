@@ -40,6 +40,7 @@ public class VersionParam {
                 break;
             case "6.5.4":
             case "6.5.6":
+            case "6.5.7":
                 randomGameClass = "com.tencent.mm.sdk.platformtools.bf";
                 gameType = "da";
                 break;
