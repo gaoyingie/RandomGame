@@ -4,7 +4,7 @@ package me.veryyoung.wechat.randomgame;
 public class VersionParam {
 
     public static String randomGameClass = "com.tencent.mm.sdk.platformtools.bf";
-    public static String gameType = "da";
+    public static String gameType = "dv";
 
     public static void init(String version) {
         switch (version) {
@@ -44,9 +44,13 @@ public class VersionParam {
                 randomGameClass = "com.tencent.mm.sdk.platformtools.bf";
                 gameType = "da";
                 break;
+            case "6.5.8":
+                randomGameClass = "com.tencent.mm.sdk.platformtools.bf";
+                gameType = "dv";
+                break;
             default:
                 randomGameClass = "com.tencent.mm.sdk.platformtools.bf";
-                gameType = "da";
+                gameType = "dv";
         }
     }
 }
