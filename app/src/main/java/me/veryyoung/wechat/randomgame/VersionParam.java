@@ -3,8 +3,11 @@ package me.veryyoung.wechat.randomgame;
 
 public class VersionParam {
 
-    public static String randomGameClass = "com.tencent.mm.sdk.platformtools.bf";
-    public static String gameType = "dv";
+    /**
+     * search new Random(System.currentTimeMillis())
+     */
+    public static String randomGameClass = "com.tencent.mm.sdk.platformtools.bg";
+    public static String gameType = "dK";
 
     public static void init(String version) {
         switch (version) {
@@ -48,9 +51,13 @@ public class VersionParam {
                 randomGameClass = "com.tencent.mm.sdk.platformtools.bf";
                 gameType = "dv";
                 break;
+            case "6.5.10":
+                randomGameClass = "com.tencent.mm.sdk.platformtools.bg";
+                gameType = "dK";
+                break;
             default:
-                randomGameClass = "com.tencent.mm.sdk.platformtools.bf";
-                gameType = "dv";
+                randomGameClass = "com.tencent.mm.sdk.platformtools.bg";
+                gameType = "dK";
         }
     }
 }
