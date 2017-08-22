@@ -84,11 +84,11 @@ public class SettingsActivity extends AppCompatActivity {
                     Intent intent = new Intent();
                     intent.setClassName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
                     intent.putExtra("donate", true);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     return true;
                 }
             });
-
 
 
         }

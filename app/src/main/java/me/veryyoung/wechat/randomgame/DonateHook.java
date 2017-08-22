@@ -2,10 +2,10 @@ package me.veryyoung.wechat.randomgame;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
@@ -17,7 +17,7 @@ import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
 public class DonateHook {
 
     public void hook(XC_LoadPackage.LoadPackageParam loadPackageParam) {
-        findAndHookMethod("com.tencent.mm.ui.LauncherUI", loadPackageParam.classLoader, "onCreate", Bundle.class, new XC_MethodHook() {
+        findAndHookMethod("com.tencent.mm.ui.LauncherUI", loadPackageParam.classLoader, "onNewIntent", Intent.class, new XC_MethodHook() {
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                 Activity activity = (Activity) param.thisObject;
@@ -34,6 +34,8 @@ public class DonateHook {
                             donateIntent.putExtra("pay_channel", 13);
                             donateIntent.putExtra("receiver_name", "yang_xiongwei");
                             donateIntent.removeExtra("donate");
+                            XposedBridge.log("xposed donating");
+                            donateIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             activity.startActivity(donateIntent);
                             activity.finish();
                         }
