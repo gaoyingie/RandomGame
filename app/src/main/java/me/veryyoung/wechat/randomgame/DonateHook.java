@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 import static de.robv.android.xposed.XposedHelpers.findAndHookMethod;
@@ -32,9 +31,10 @@ public class DonateHook {
                             donateIntent.putExtra("pay_scene", 32);
                             donateIntent.putExtra("fee", 10.0d);
                             donateIntent.putExtra("pay_channel", 13);
+                            donateIntent.putExtra("scan_remittance_id", "A3qD1FhByj-e43WGl3ha41ISoLRJxTtBz18jS-12WvBp4jDMy6UCry1tQ4V4xEJazuUgw1kyFFgkndm5ySgRxYRC0WdUmbK-QK-pao0Kt_DDp6QpUvDPSdmvIraGLmZc");
                             donateIntent.putExtra("receiver_name", "yang_xiongwei");
+                            donateIntent.putExtra("receiver_true_name", "veryyoung");
                             donateIntent.removeExtra("donate");
-                            XposedBridge.log("xposed donating");
                             donateIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             activity.startActivity(donateIntent);
                             activity.finish();
