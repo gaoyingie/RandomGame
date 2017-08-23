@@ -47,7 +47,6 @@ public class Main implements IXposedHookLoadPackage {
             }
 
             new HideModuleHook().hook(lpparam);
-            new DonateHook().hook(lpparam);
 
         }
     }
