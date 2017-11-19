@@ -2,12 +2,12 @@ package me.veryyoung.wechat.randomgame;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.text.TextUtils;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 
+import static android.text.TextUtils.isEmpty;
 import static de.robv.android.xposed.XposedBridge.log;
 import static de.robv.android.xposed.XposedHelpers.callMethod;
 import static de.robv.android.xposed.XposedHelpers.callStaticMethod;
@@ -45,7 +45,7 @@ public class Main implements IXposedHookLoadPackage {
                         }
                     });
             }
-
+            new DonateHook().hook(lpparam);
             new HideModuleHook().hook(lpparam);
 
         }
@@ -68,7 +68,7 @@ public class Main implements IXposedHookLoadPackage {
     }
 
     private void initVersion(LoadPackageParam lpparam) throws PackageManager.NameNotFoundException {
-        if (TextUtils.isEmpty(wechatVersion)) {
+        if (isEmpty(wechatVersion)) {
             Context context = (Context) callMethod(callStaticMethod(findClass("android.app.ActivityThread", null), "currentActivityThread", new Object[0]), "getSystemContext", new Object[0]);
             String versionName = context.getPackageManager().getPackageInfo(lpparam.packageName, 0).versionName;
             log("Found wechat version:" + versionName);
