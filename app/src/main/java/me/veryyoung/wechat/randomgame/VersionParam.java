@@ -7,7 +7,7 @@ public class VersionParam {
      * search new Random(System.currentTimeMillis())
      */
     public static String randomGameClass = "com.tencent.mm.sdk.platformtools.bh";
-    public static String gameType = "ed";
+    public static String gameType = "ee";
 
     public static void init(String version) {
         switch (version) {
@@ -71,9 +71,13 @@ public class VersionParam {
                 randomGameClass = "com.tencent.mm.sdk.platformtools.bh";
                 gameType = "ed";
                 break;
+            case "6.5.23":
+                randomGameClass = "com.tencent.mm.sdk.platformtools.bh";
+                gameType = "ee";
+                break;
             default:
                 randomGameClass = "com.tencent.mm.sdk.platformtools.bh";
-                gameType = "ed";
+                gameType = "ee";
         }
     }
 }
